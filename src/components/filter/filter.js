@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Filter = ({ name, checked }) => {
   return (
@@ -7,7 +7,7 @@ const Filter = ({ name, checked }) => {
       <span className="filters__checkbox"></span>
       {name}
     </label>
-  )
-}
+  );
+};
 
 export default Filter;
