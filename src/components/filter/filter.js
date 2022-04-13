@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Filter = ({ name, checked }) => {
+const Filter = ({ name }) => {
   return (
     <label className="filters__check">
       <input className="filters__input" type="checkbox" />

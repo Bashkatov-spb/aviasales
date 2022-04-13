@@ -8,13 +8,12 @@ export const unTwo = () => ({ type: 'NO_TWO' });
 export const unTrt = () => ({ type: 'NO_THREE' });
 export const unAll = () => ({ type: 'UNCHECK_ALL' });
 export const addT = () => ({ type: 'ADD_TICKETS' });
+export const setId = (id) => ({ type: 'SET_ID', payload: id });
 export const addData = (data) => ({ type: 'ADD_DATA', payload: data });
 export const stopLoading = () => ({ type: 'STOP_LOADING' });
 export const asyncAdd = () => {
   return (dispatch) => {
-    setTimeout(() => {
-      console.log('async');
-    }, 3000);
+    console.log('123');
   };
 };
 export const tab = (e) => {

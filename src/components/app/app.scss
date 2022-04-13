@@ -17,7 +17,7 @@ p {
 }
 .header {
   &__logo {
-    background: url('./logo.png') center no-repeat;
+    background: url('../../../public/logo.png') center no-repeat;
     background-size: contain;
     width: 100px;
     height: 100px;
@@ -68,7 +68,7 @@ p {
     -web-kit-appearance: none;
     -moz-appearance: none;
     &:checked + .filters__checkbox {
-      background-image: url('./check_active.svg');
+      background-image: url('../../../public/check_active.svg');
     }
     &:focus + .filters__checkbox {
       outline: 1px solid #2196F3;
@@ -81,7 +81,7 @@ p {
     margin-top: 2px;
     width: 20px;
     height: 20px;
-    background-image: url('./check.svg');
+    background-image: url('../../../public/check.svg');
   }
 }
 .items {
