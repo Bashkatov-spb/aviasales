@@ -32,7 +32,7 @@ const App = ({ data, addData, state }) => {
 
   useEffect(() => {
     if (searchId && !stop) {
-      async function getData() {
+      const getData = async () => {
         let response = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`);
         if (response.status === 502 || response.status === 500) {
           await getData();
@@ -49,7 +49,7 @@ const App = ({ data, addData, state }) => {
             setStop(true);
           }
         }
-      }
+      };
       getData();
     }
   }, [searchId, data]);
