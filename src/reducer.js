@@ -6,7 +6,7 @@ const defaultState = {
   three: false,
   classActive: '',
   async: '',
-  showTickets: 15,
+  showTickets: 5,
   data: [],
   loading: true,
 };
