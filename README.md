@@ -1,1 +1,1 @@
-https://aviasales-q1kmha3ay-tissottwo-gmailcom.vercel.app
+https://aviasales-1in7lay1o-tissottwo-gmailcom.vercel.app
