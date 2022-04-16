@@ -4,23 +4,20 @@ import { connect } from 'react-redux';
 import Filters from '../filters/filters';
 import HeaderLogo from '../header-logo/header-logo';
 import HeaderSort from '../header-sort/header-sort';
-import ItemsFooter from '../items-footer/items-footer';
+import ShowMoreTickets from '../show-more-tickets/show-more-tickets';
 import ItemsList from '../items-list/items-list';
-import * as actions from '../../actions';
+import * as actions from '../../redux/actions';
 import './app.scss';
 import Spinner from '../spinner/spinner';
 
-const App = ({ data, addData, state }) => {
+const App = ({ addDataTickets, state }) => {
+  const { filtersInfo, showDataInfo } = state;
+  const { data } = showDataInfo;
+  const { filtersValue } = filtersInfo;
   const [searchId, setSearchId] = useState();
   const [stop, setStop] = useState(false);
   let showErrorMessage = false;
-  if (
-    state.all === false &&
-    state.not === false &&
-    state.one === false &&
-    state.two === false &&
-    state.three === false
-  ) {
+  if (filtersValue.length <= 0) {
     showErrorMessage = true;
   }
   useEffect(() => {
@@ -44,7 +41,7 @@ const App = ({ data, addData, state }) => {
           await getData();
         } else {
           let body = await response.json();
-          addData([...body.tickets]);
+          addDataTickets([...body.tickets]);
           if (body.stop) {
             setStop(true);
           }
@@ -64,7 +61,7 @@ const App = ({ data, addData, state }) => {
           {!stop && <Spinner />}
           {!showErrorMessage && <ItemsList />}
           {showErrorMessage && <h2 className="title-error">Рейсов, подходящих под заданные фильтры, не найдено</h2>}
-          {!showErrorMessage && <ItemsFooter />}
+          {!showErrorMessage && <ShowMoreTickets />}
         </div>
       </main>
     </div>
@@ -73,8 +70,6 @@ const App = ({ data, addData, state }) => {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.data,
-    loading: state.loading,
     state,
   };
 };

@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Item from '../item/item';
-
-const ItemsList = ({ data, showTickets, state }) => {
+const ItemsList = ({ state }) => {
+  const { filtersInfo, showDataInfo } = state;
+  const { data, showTickets } = showDataInfo;
+  const { filtersValue, classActive } = filtersInfo;
   const sortByPrice = (data) => {
     return data.sort((a, b) => {
       return a.price - b.price;
@@ -19,37 +21,33 @@ const ItemsList = ({ data, showTickets, state }) => {
       return a.price + a.segments[0].duration - (b.price + b.segments[0].duration);
     });
   };
+  let newArr = [];
+  if (filtersValue.length > 0) {
+    for (let i = 0; i < filtersValue.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (data[j].segments[0].stops.length === Number(filtersValue[i])) {
+          newArr.push(data[j]);
+        }
+      }
+    }
+  } else {
+    newArr = [];
+  }
+
   let newData = [];
-  if (state.classActive === 'cheap') {
-    newData = sortByPrice(data);
+  if (classActive === 'cheap') {
+    newData = sortByPrice(newArr);
   }
-  if (state.classActive === 'fast') {
-    newData = sortByDuration(data);
+  if (classActive === 'fast') {
+    newData = sortByDuration(newArr);
   }
-  if (state.classActive === 'optimal') {
-    newData = optimalSort(data);
+  if (classActive === 'optimal') {
+    newData = optimalSort(newArr);
   }
-  if (state.classActive === '' || state.all) {
-    newData = data;
+  if (classActive === '') {
+    newData = newArr;
   }
-  if (state.not && !state.all) {
-    newData = data.filter((item) => item.segments[0].stops.length === 0 && item.segments[1].stops.length === 0);
-  }
-  if (state.one) {
-    newData = data.filter((item) => item.segments[0].stops.length === 1 && item.segments[1].stops.length === 1);
-  }
-  if (state.two) {
-    newData = data.filter((item) => item.segments[0].stops.length === 2 && item.segments[1].stops.length === 2);
-  }
-  if (state.three) {
-    newData = data.filter((item) => item.segments[0].stops.length === 3 && item.segments[1].stops.length === 3);
-  }
-  if (state.one && state.two) {
-    newData = data.filter((item) => item.segments[0].stops.length <= 2 && item.segments[1].stops.length <= 2);
-  }
-  if (state.one && state.two && state.three) {
-    newData = data.filter((item) => item.segments[0].stops.length <= 3 && item.segments[1].stops.length <= 3);
-  }
+
   const items = newData.map((item, index) => {
     if (index < showTickets) {
       return <Item key={index} item={item} />;
@@ -61,8 +59,6 @@ const ItemsList = ({ data, showTickets, state }) => {
 
 const mapStateToProps = (state) => {
   return {
-    showTickets: state.showTickets,
-    data: state.data,
     state,
   };
 };

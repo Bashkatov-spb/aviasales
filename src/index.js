@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 
-import reducer from './reducer';
+import reducer from './redux/reducers/index';
 import App from './components/app/App';
 
 const composeEnhancers =
@@ -13,7 +13,6 @@ const composeEnhancers =
     : compose;
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(reduxThunk)));
-
 const container = document.getElementById('root');
 const root = createRoot(container);
 
